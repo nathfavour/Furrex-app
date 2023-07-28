@@ -1,0 +1,71 @@
+﻿@page "/fetchdata"
+@using Furrex_app.Shared
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1> Forex trade</h1>
+
+<p>The forex exchange service is not available yet, but soon will...</p>
+<br />
+<br />
+<br />
+<br />
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="background-color:violet;">Pair</th>
+                <th style="background-color:cyan;">Buy</th>
+                <th style="background-color:violet;">Sell</th>
+                <th style="background-color:cyan;">Outlook</th>
+                <th style="background-color:violet;">Charts</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+<tr style="background: linear-gradient(to right, cyan, darkviolet);">
+    <td>@forecast.Date.ToShortDateString()</td>
+    <td>@forecast.TemperatureC</td>
+    <td>@forecast.TemperatureF</td>
+    <td>@forecast.Summary</td>
+</tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

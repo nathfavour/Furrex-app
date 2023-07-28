@@ -1,0 +1,55 @@
+﻿@page "/forex"
+<h1>Forex Trading Pairs</h1>
+@foreach (var pair in ForexPairs)
+{
+    <div class="forex-pair" style="background-color: cyan;">
+        <span>@pair</span>
+        <span class="play-icon" @onclick="() => ShowDropdown(pair)">▶</span>
+        @if (SelectedPair == pair)
+        {
+            <div class="dropdown" style="background-color: violet; display: block;">
+                <ul>
+                    <li><a href="#">Buy</a></li>
+                    <li><a href="#">Sell</a></li>
+                    <li><a href="#">Chart</a></li>
+                    <li><a href="#">Trade</a></li>
+                    <li><a href="#">Bots</a></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="dropdown" style="background-color: violet; display: none;">
+                <ul>
+                    <li><a href="#">Buy</a></li>
+                    <li><a href="#">Sell</a></li>
+                    <li><a href="#">Chart</a></li>
+                    <li><a href="#">Trade</a></li>
+                    <li><a href="#">Bots</a></li>
+                </ul>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<string> ForexPairs = new List<string> {
+        "EUR/USD", "USD/JPY", "GBP/USD", "USD/CHF", "AUD/USD",
+        "USD/CAD", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY",
+        "CHF/JPY", "CAD/JPY", "AUD/JPY", "EUR/CHF", "GBP/CHF",
+        "EUR/CAD", "AUD/CAD", "AUD/NZD", "NZD/JPY", "GBP/CAD"
+    };
+    private string SelectedPair = null;
+
+    private void ShowDropdown(string pair)
+    {
+        if (SelectedPair == pair)
+        {
+            SelectedPair = null;
+        }
+        else
+        {
+            SelectedPair = pair;
+        }
+    }
+}

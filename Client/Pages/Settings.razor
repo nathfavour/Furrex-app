@@ -1,0 +1,41 @@
+﻿@page "/settings"
+@inject NavigationManager MyNavigationManager
+
+
+<h3>Settings</h3>
+
+<div>
+    <label>
+        Activate merchant mode
+        <input type="checkbox" @bind="IsMerchantModeActive" @onclick="OnMerchantModeChanged" />
+    </label>
+</div>
+
+@if (!HasMerchantAccount && IsMerchantModeActive)
+{
+    <p style="color: red;">You do not have a merchant account. Please create one to use merchant mode.</p>
+    <div>
+        <label>
+            Create merchant account
+            <input type="checkbox" @onclick="OnCreateMerchantAccount" />
+        </label>
+    </div>
+}
+
+@code {
+    private bool IsMerchantModeActive { get; set; }
+    private bool HasMerchantAccount { get; set; }
+
+    private void OnMerchantModeChanged()
+    {
+        if (!IsMerchantModeActive)
+        {
+            // Deactivate merchant mode
+        }
+    }
+
+    private void OnCreateMerchantAccount()
+    {
+        MyNavigationManager.NavigateTo("/my-page", true);
+    }
+}
